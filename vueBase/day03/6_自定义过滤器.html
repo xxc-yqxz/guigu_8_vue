@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app1">
+        <p>{{timeNow}}</p>
+        <!-- "|":管道符 -->
+        <p>{{timeNow|timeFormat}}</p>
+        <p>{{timeNow|timeFormat('YYYY-MM-DD')}}</p>
+        <p>{{timeNow|timeFormat('hh:mm:ss')}}</p>
+    </div>
+    <div id="app2">
+        <p>{{timeNow}}</p>
+        <!-- "|":管道符 -->
+        <p>{{timeNow|timeFormat}}</p>
+    </div>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.js"></script>
+    <script type="text/javascript">
+
+        // 定义全局过滤器和局部过滤器
+        Vue.filter('timeFormat', function (value, format = 'MMMM Do YYYY, hh:mm:ss') {
+            return moment(value).format(format);
+        })
+
+        // vue当中的过滤器可以理解成是为了让数据进一步的计算，得到最终的结果
+        new Vue({
+            el: '#app1',
+            data: {
+                timeNow: Date.now() // 当前时间 1970年1月1日0时0分0秒到现在的毫秒数
+            }/* ,
+            filters: {
+                timeFormat(value) {
+                    return moment(value).format('MMMM Do YYYY, hh:mm:ss');
+                }
+            } */
+        })
+
+        new Vue({
+            el: '#app2',
+            data: {
+                timeNow: Date.now()
+            }
+        })
+    </script>
+</body>
+
+</html>

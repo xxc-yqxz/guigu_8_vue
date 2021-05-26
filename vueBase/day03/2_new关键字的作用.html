@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 全局执行作用域链是最外层的 -->
+    <script type="text/javascript">
+        // 函数在定义的时候就决定了调用的时候它的上级作用域是谁，
+        // 作用域链是一个数组的结构，第一个位置放自己的属性，最后一个放global
+        function Dog(name, age) {
+            // this.name = name    此两行是为Dog添加堆属性
+            // this.age = age  此两行是为Dog添加堆属性
+            var b = 20
+            function aa() {
+                console.log(b)
+            }
+            console.dir(aa)//Scopes表示函数执行，除了自身以外的作用域链
+            aa()
+        }   // 函数结束时会把this返回给d1，然后在栈中销毁，将添加的堆属性指给d1,于是创建对象成功
+
+        var d1 = new Dog('旺财', 3)     // new 开辟空间-> 改this指向指向堆，执行代码、返回this。
+        // console.log(d1.name)
+
+        // 将函数按对象形式输出
+        // console.dir(Dog)    //Scopes表示函数执行，除了自身以外的作用域链
+        // console.log(Dog)    // 输出函数本身
+    </script>
+</body>
+
+</html>

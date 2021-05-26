@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Object.keys(obj) // 返回的是参数对象的属性组成的数组，可以用数组的方法forEach去遍历对象。
+        let obj111 = {
+            name: 'xxc',
+            age: 20
+        }
+
+        for (let key in obj111) {
+            console.log(key, obj111[key])
+        }
+
+        Object.keys(obj111).forEach(item => console.log(item, obj111[item]))
+
+        // for    最基本的循环  用来专门遍历数组的  可以使用break和continue
+
+        // for in   专门用来遍历对象的属性的，这个属性遍历到还是遍历不到要看这个属性是不是可枚举的(原型当中的数据都是不可枚举的)
+        // for in 效率最低，因为除了遍历自身以外还要遍历原型
+
+        // for of       
+        // 专门遍历可迭代的数据 ...(扩展运算符，能用for of 的都可以用'...')
+        // 数组有迭代器，对象没有
+        // map、set
+
+        // forEach   是一个数组的方法，效率极高  但是不可以使用break和continue
+
+
+
+
+
+        // Object.defineProperty    ES5
+        // 这个方法在为对象添加或者修改 属性为响应式属性
+        let obj = {
+            firstName: 'xxc',
+            lastName: 'jmz'
+        }
+
+        let obj2 = {}
+        // obj.fullName = 'xxc-jmz'
+        // console.log(obj);
+
+        // obj.firstName = 'xxc2'
+        // console.log(obj)
+
+        // obj.fullName = "xxc2-jmz"
+        // console.log(obj)
+
+        Object.defineProperty(obj, 'fullName', {
+            get() {
+                // 当访问对象的fullName属性时
+                return this.firstName + '-' + this.lastName
+            },
+            set(val) {
+                // 当设置对象的fullName属性时
+                // let arr = val.split('-')
+                // this.firstName = arr[0]
+                // this.lastName = arr[1]
+                obj2.firstName = this.firstName
+                obj2.lastName = this.lastName
+                obj2.fullName = val
+            }
+        })
+
+        console.log(obj.fullName)
+        obj.fullName = "123-456"
+        console.log(obj)    // 注意除非单独输出,否则无法从obj中得到fullName
+        console.log(obj2)
+
+
+
+        // 模拟数据代理
+        let vm = {}
+        let data = { msg: 'xxc' }
+
+        Object.defineProperty(vm, 'msg', {
+            get() {
+                return data.msg
+            },
+            set(val) {
+                data.msg = val
+            }
+        })
+
+        console.log(vm.msg)
+
+        vm.msg = '111'
+
+        console.log(vm.msg, data.msg)
+    </script>
+</body>
+
+</html>

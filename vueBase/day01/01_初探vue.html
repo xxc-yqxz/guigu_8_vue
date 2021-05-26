@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <p id="pp">嘿嘿</p> -->
+        <p id="pp">{{str}}</p>
+    </div>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script>
+        // 原生
+        // let str = '我爱你久美子' // ajax请求获取的数据省略
+        // let pp = document.getElementById('pp')
+        // pp.innerHTML = str
+
+        // // jQuery
+        // $('#pp').html(str)
+
+        // vue版本
+        const vm = new Vue({ // 此处的Vue是个函数
+            // 配置对象，配置的对象名已经固定死
+            el: '#app', // 挂载点是上面的div
+            data: {
+                str: '我爱你久美子'
+            }
+        })
+
+        // 三者对比,vue的性能是最好的
+        // 原生的和jquery，他们都获取了dom，而且在修改dom元素内容的时候，都会重绘dom树，尤其是对多个元素
+        // vue和原生及jquery是不一样的，它采用文档碎片()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+        <!-- 一旦用了指令，那么这个被指令使用的属性，属性值就是js代码，而原本的“”不再代表字符串的边界（代表js的边界） -->
+        <!-- <a v-bind:href="url">点击去学习</a> -->
+        <!-- 单向数据绑定指令的简写 -->
+        <a :href="url">点击去学习</a>
+
+        <!-- <button v-on:click="test">点我</button> -->
+        <!-- 添加事件监听的简写 -->
+        <button @click="test">点我</button>
+    </div>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'i love you kumiku',
+                url: 'http://www.atguidu.com'
+            },
+            methods: {
+                // 这里面是专门用来写函数的
+                // 此处使用了es6语法简写形式
+                // 无论是data里面的数据 还是methods当中的方法 最终都会被vm代理
+                test() {
+                    alert('111')
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

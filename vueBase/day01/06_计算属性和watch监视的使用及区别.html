@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        姓: <input type="text" v-model="firstName">
+        名: <input type="text" v-model="lastName">
+        <!-- 第一种 使用js的拼接 数据在模板当中 this全部指向的是vm 只不过模板当中的this可以省略 -->
+        <p>{{firstName + '-'+lastName}}</p>
+        <!-- 第二种，封装函数去写 -->
+        <p>{{getFullName()}}</p>
+        <!-- <p>{{getFullName()}}</p>
+        <p>{{getFullName()}}</p> -->
+        <!-- (重要)第三种，计算属性 -->
+        <p>{{fullName}}</p>
+        <!-- <p>{{fullName}}</p>
+        <p>{{fullName}}</p> -->
+
+        <!-- (重要)第四种，watch监视（数据必须存在） -->
+        <p>{{fullName2}}</p>
+        <p>{{fullName2}}</p>
+        <p>{{fullName2}}</p>
+
+        <!-- 使用computed异步返回数据，不行 -->
+        <p>{{fullName3}}</p>
+
+        <!-- 使用watch异步更新数据，可行  -->
+        <p>{{fullName4}}</p>
+        <!-- 使用计算属性的set方法 -->
+        <input type="text" v-model="fullName">
+    </div>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    firstName: 'xxc',
+                    lastName: 'jmz',
+                    fullName2: '',   // 监视的时候必须有这个属性，属性值是什么不确定，后面根据监视去给它赋值
+                    fullName4: ''
+                }
+            },
+            methods: {
+                getFullName() {
+                    // 在vue中，所有的函数内部的this都指向vm，因为这些方法或者函数都会被vm代理
+                    console.log('方法被调用了')
+                    return this.firstName + "-" + this.lastName
+                }
+            },
+
+            // 当我需要一个数据，但是这个数据我又没有，并且这个数据由目前我有的数据计算而来的，那就是要用计算属性
+            computed: {
+                // 计算属性的完整写法
+                fullName: {
+                    get() {
+                        return this.firstName + '-' + this.lastName
+                    },
+
+                    // 当计算属性的数据能被修改时使用(表单类元素在双向绑定计算属性值)
+                    set(val) {
+                        // 目前没用
+                        let arr = val.split('-')
+                        this.firstName = arr[0]
+                        this.lastName = arr[1]
+                    }
+                },
+
+                // 如果计算属性当中只有get方法，那么可以简写为如下写法啊
+                /* fullName() {
+                    console.log('computed被调用')
+                    return this.firstName + '-' + this.lastName
+                }, */
+                fullName3() {
+                    // computed内部只能是同步返回数据。不能异步返回数据
+                    let a = null
+                    setTimeout(() => {
+                        a = '嘿嘿'
+                    }, 1000)
+                    return a
+                }
+            },
+
+
+            // 使用methods和使用computed去计算姓名的区别(重点)
+            // 对于方法调用:你使用了几次方法调用，那么这个方法就被调用了几次
+            // 对于计算属性:你不管使用了多少次计算属性，计算属性的get方法只调用了一次
+            // 计算属性一定存在缓存，这样有缓存使用多次的时候效率比使用方法高得多
+
+            // 监视的数据一定是存在的，而且是可以变化的
+            watch: {
+                firstName: {
+                    // 这个对象是一个配置对象,对象名不能变
+                    // 当数据发生改变的时候会自动调用handler回调
+                    handler(newVal, oldVal) {
+                        // console.log('watch被调用了')    
+                        this.fullName2 = newVal + '-' + this.lastName
+
+                        // 
+                        setTimeout(() => {
+                            // 异步修改数据
+                            this.fullName4 = '呵呵'
+                        }, 1000);
+                    },
+                    immediate: true // 配置这个配置项的作用是无论监视的属性发生不发生变化，都要强制执行一次回调
+                },
+                // lastName: {
+
+                // },
+                // xxxL: {
+
+                // }
+            }
+        })
+
+        // 此处function因为定义在watch里面，所以指向vm（注意理解）
+        vm.$watch('lastName', function (newVal, oldVal) {
+            // this决定了是否可以使用箭头函数
+            this.fullName2 = this.firstName + '-' + newVal
+        })
+
+        // computed是计算属性:一般是没有这个值但是想要用这个值，那么根据已有的去做计算
+        // watch 是监视属性:一般监视属性，监视的属性以及后期要更改的属性都必须有，通常能用computed的场合都可以使用watch去解决
+        // 但是能用watch解决的computed不一定能解决
+        //computed函数当中只能使用同步，而watch当中可以是同步也可以是异步
+
+        // 我们去比较computed和watch的时候起始比较的是计算属性的get方法
+
+        // 计算属性的set没什么特别，其实仅仅是对计算属性添加了监视（当计算属性的值修改之后，会调用set）
+    </script>
+</body>
+
+</html>

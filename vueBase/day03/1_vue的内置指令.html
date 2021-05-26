@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+        <p v-text="message"></p>
+        <p v-html="message"></p>
+        <!-- ref是vue当中给我们提供的一个标识数据。 -->
+        <p ref="pp"></p>
+        <p ref="pp2"></p>
+        <button @click="test">点击获取最后一个p</button>
+    </div>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                msg: '我爱你jmz',
+                message: '<h2>i love you~</h2>'
+            },
+            methods: {
+                // 不用event可不写
+                test() {
+                    console.log(this.$refs.pp)
+                    this.$refs.pp.innerText = "我爱你薛昕铖"
+                    this.$refs.pp2.innerText = "我爱你xxc"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

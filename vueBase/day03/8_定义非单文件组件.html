@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 当每次写标签使用的时候，都会偷偷实例化定义出来的函数的实例化对象，被称为是组件对象，也就是说每一个组件标签背后都会对应自己的组件对象在支撑着 -->
+        <mybutton></mybutton>
+        <mybutton></mybutton>
+    </div>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript">
+
+        //1.定义全局组件(定义的组件之后都是全局组件) 本质上是根据一个配置对象定义返回一个函数，后期是当构造函数使用
+        // 麻烦写法
+        // const VueComponent = Vue.extend({
+        //     // 组件配置对象和Vue的配置对象很相似,除了el
+        //     data() {
+        //         // 组件的配置对象当中data只能写函数,写对象的话会报错
+        //         return {
+        //             count: 0
+        //         }
+        //     },
+        //     /* data: {
+        //         // 组件当中不能写对象
+        //         count: 0
+        //     }, */
+        //     template: '<div><h2 style="color:hotpink">我爱jmz</h2><button @click="count++">你爱了{{count}}次</button></div>'
+        // })
+
+        // //2.注册(全局注册和局部注册) 本质是把一个标签的名称和刚才定义出来的函数绑定在一起
+        // Vue.component('mybutton', VueComponent)
+        // //3.使用（14、15行）
+
+
+        // // 定义组件的简单写法(定义带注册)
+        // // 1.定义带注册
+        // // 本质上内部还是使用extend生成一个函数，然后再去和mybutton绑定
+        // Vue.component('mybutton', {
+        //     // 组件配置对象和Vue的配置对象很相似,除了el
+        //     data() {
+        //         // 组件的配置对象当中data只能写函数,写对象的话会报错
+        //         return {
+        //             count: 0
+        //         }
+        //     },
+        //     /* data: {
+        //         // 组件当中不能写对象
+        //         count: 0
+        //     }, */
+        //     template: '<div><h2 style="color:hotpink">我爱jmz</h2><button @click="count++">你爱了{{count}}次</button></div>'
+        // })
+        // // 2.使用（14、15行）
+
+        // 一般情况下 我们定义的都是局部组件 因为这个组件只在一个地方用到
+        // 但是当一个组件被多个组件都使用的时候，我们定义为全局组件比较方便。
+
+        // 局部注册组件
+        new Vue({
+            el: '#app',
+            components: {
+                mybutton: {
+                    // 组件配置对象和Vue的配置对象很相似,除了el
+                    data() {
+                        // 组件的配置对象当中data只能写函数,写对象的话会报错
+                        return {
+                            count: 0
+                        }
+                    },
+                    /* data: {
+                        // 组件当中不能写对象
+                        count: 0
+                    }, */
+                    template: '<div><h2 style="color:hotpink">我爱jmz</h2><button @click="count++">你爱了{{count}}次</button></div>'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 
+        MVVM说的就是双向数据绑定模型 M代表model 就是我们的数据  
+                                    V代表view   就是我们的页面
+                                    VM代表的就是Vue实例化对象
+                    双向数据绑定数据可以从data流向页面，页面数据被更新，也会从页面流向data(当data的数据被更改以后，又会重新流向页面)
+
+        blur和change事件的差别：
+            blue:失去焦点
+            change:修改后失去焦点
+            input:修改
+    -->
+</head>
+
+<body>
+    <!-- 表单类元素：form里面 input(text,password,radio,checkbox,button,reset,button,file,date) select testarea  -->
+    <div id="app">
+        <!-- v-bind是单向数据绑定 -->
+        <!-- <input type="text" :value="msg" /> -->
+
+        <!-- 双向数据绑定,一般情况下只针对表单类元素才使用双向数据绑定 通过v-bind和input事件 -->
+        <input type="text" v-model="msg">
+
+        <p>oumae{{msg}}</p>
+    </div>
+    <script type=" text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript">
+        const vm = new Vue({
+            // el: '#app',  一般情况下挂载都是书写配置项
+            data() {
+                return {
+                    msg: 'kumiko'
+                }
+            }
+        }).$mount('#app') // 也可以这么写
+    </script>
+</body>
+
+</html>

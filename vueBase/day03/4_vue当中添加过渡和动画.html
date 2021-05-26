@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 300px;
+            height: 500px;
+            background-color: hotpink;
+        }
+
+        .xxc-enter {
+            height: 0;
+            opacity: 0;
+            background-color: black;
+        }
+
+        .xxc-enter-to {
+            height: 500px;
+            opacity: 1;
+            background-color: hotpink;
+        }
+
+        .xxc-enter-active {
+            transition: all 5s;
+        }
+
+        .xxc-leave {
+            height: 500px;
+            opacity: 1;
+            background-color: hotpink;
+        }
+
+        .xxc-leave-to {
+            height: 0;
+            opacity: 0;
+            background-color: black;
+        }
+
+        .xxc-leave-active {
+            transition: all 5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 
+            1.理解进入和离开    一共6个类
+            2.哪个元素在变化，就给哪个元素使用transition（vue给我们定义的一个组件标签）标签
+            3.组件标签使用的时候，name值决定了类名的前缀
+            4.变化的元素添加类，就是给对应的类添加样式
+         -->
+        <transition name="xxc">
+            <div class="box" v-show="isShow"></div>
+        </transition>
+        <button @click="isShow = !isShow">点击切换</button>
+    </div>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    isShow: true
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

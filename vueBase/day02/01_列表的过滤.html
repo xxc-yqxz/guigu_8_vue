@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" placeholder="请输入过滤的条件" v-model="keyword">
+        <ul>
+            <li v-for="(person,index) in newPersons" :key="person.id">
+                {{person.id}} --- {{person.name}} --- {{person.age}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript">
+
+        Vue.config.productionTip = false  // 消除启动浏览器的生产提示信息
+
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    keyword: "",
+                    persons: [
+                        { id: 1, name: 'xxc', age: 20 },
+                        { id: 2, name: 'jmz', age: 18 },
+                        { id: 3, name: 'mrx', age: 20 },
+                        { id: 4, name: 'ln', age: 18 }
+                    ]
+                }
+            },
+            computed: {
+                // 不能改，没有set，故此处采用简写
+                newPersons() {
+                    // 此处的this是vm,从vm身上获取keyword和persons
+                    let { keyword, persons } = this
+
+                    // 根据获取的这两个数据计算新的数据
+                    // 函数和方法最主要的是三要素
+                    // 功能     从原数组当中过滤出一个新的数组
+
+                    // 参数     回调函数(同步的回调) 
+                    // 回调函数的参数：当前项、当前项的索引、当前遍历的数组，
+                    // 功能：对遍历的每一项执行回调函数，
+                    // 返回的是一个布尔值，（布尔值或条件表达式）,根据这个布尔值的真假来决定当前遍历的这项要不要收集到新数组当中。
+
+                    // 什么是运算符？什么是表达式?
+                    // 参与运算的符号是运算符
+                    // 由变量或者常量和运算符组成的式子就是表达式，表达式都是有值的
+
+                    // 返回值   返回的是新的数组，
+
+                    // 不是箭头函数
+                    // let arr = persons.filter(function (item, index) {
+                    // indexOf从位置0开始找，找到返回字符在字符串中的下标，找不到返回 - 1
+                    //     return item.name.indexOf(keyword) !== -1
+                    // })
+
+                    // 箭头函数
+                    let arr = persons.filter(item => item.name.indexOf(keyword) !== -1)
+
+                    return arr;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

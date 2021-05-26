@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p v-text="msg"></p>
+        <p v-upper="msg"></p>
+    </div>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript">
+
+        // 自定义指令分为定义全局指令和局部指令
+        // 功能 参数 返回值
+        // 定义全局指令
+        // 参数： 1、指令名称（不包含v- 只能是全小写） 2、回调函数(参数 1：使用这个指令的那个节点,2:这个指令使用的表达式的值以及表达式的集合)
+        /* Vue.directive('upper', function (node, bindings) {
+            // console.log(node, bindings)
+            // textContent与innerText是同一个含义，只不过低级浏览器不兼容
+            node.textContent = bindings.value.toUpperCase()
+        }) */
+
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'xxc i jmz'
+            },
+            // 局部指令
+            directives: {
+                upper(node, bindings) {
+                    node.textContent = bindings.value.toUpperCase()
+                },
+                lower(node, bindings) {
+                    node.textContent = bindings.value.toLowerCase()
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

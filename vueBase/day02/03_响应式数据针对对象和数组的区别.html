@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- in 内部使用了Object.keys -->
+            <li v-for="(person, index) in persons" :key="person.id">
+                {{person.id}}---{{person.name}}---{{person.age}}
+            </li>
+        </ul>
+        <button @click="update">点击修改第一项的name</button>
+    </div>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                persons: [
+                    { id: 1, name: 'jzx', age: 18 },
+                    { id: 2, name: 'mrx', age: 19 },
+                    { id: 3, name: 'ln', age: 18 },
+                    { id: 4, name: 'xxc', age: 20 }
+                ]
+            },
+            methods: {
+                update() {
+                    // 1.
+                    // this.persons[0].name = 'modify'
+
+                    // 2.
+                    // this.persons[0] = { id: 1, name: 'modify', age: 18 }
+
+                    // 3.push pop shift unshift splice(增删改一体化)
+                    // splice根据参数不同功能不同，参数是不一样的，返回值都是删除的元素组成的数组
+                    // splice 参数只有两个 代表删除 第一个起始位置，第二个删几个
+                    //   参数如果是多个  是增还是改 看第二个参数，第二个参数是0代表增 如果不是0代表改
+
+                    // this.persons.splice(0, 1, 'heihei') //改
+                    // this.persons.splice(0, 0, 'heihei') //增，返回空数组
+
+                    this.persons.splice(0, 1, { id: 1, name: 'modify', age: 18 })
+                }
+            }
+        })
+
+        // 在vue当中  一开始data中的数据都是响应式的（后期添加的没有: this.a = 111）
+
+
+        // vue当中处理响应式数据对于数组和对象是不一样的
+
+        // 1.如果修改的是对象的属性，修改会在页面上生效。因为Vue一开始就为data当中所有的属性通过Object.defineProperty添加了get和set
+
+        // 2.数组修改的时候，必须使用特定的基格尔方法才能是响应式，如果直接通过下标操作数组的数据，不是响应式
+
+                // 为什么数据的方法就可以是响应式？
+                // 此splice非原生的splice,Vue当中给数组部分方法添加了修改页面的功能(重写数组的方法)
+
+        // 总结 vue在对待数组和对象的时候处理响应式是不一样的
+        // 对象是通过Object.defineProperty添加了get和set
+        // 数组是重写数组的方法
+    </script>
+</body>
+
+</html>
