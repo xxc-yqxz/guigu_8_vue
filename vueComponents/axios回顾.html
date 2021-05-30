@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
+    <script type="text/javascript">
+        // axios是根据xhr和promise封装而来的一个http库(插件)
+        // http请求 包括普通的http请求和ajax请求
+
+        // 今后我们用来发送ajax请求最多的工具 就是axios
+        // 引入之后暴露给我们的是一个函数
+        // axios是一个函数 也是函数对象
+        // axios有两种用法 函数用法和对象用法
+        // axios()  函数
+        // axios.get() 函数对象的用法
+
+        // 请求方式：一般普通的http请求就是get和post
+        // ajax请求 get post put delete
+
+        // 项目几乎都是前后端分离
+        // 前端做前端的（搭页面，做交互（请求获取数据展示渲染）） 
+        // 后端做后端的(数据库的存储操作，接口的书写，服务器的部署)
+
+        // restful Api接口规范  是现在目前最流行的书写后端接口的一个规范
+        // 资源化
+        // 每个数据都会被看作是一个资源(商品) 对于每一个资源来说操作数据库有4个情况 增 删 改 查
+        // 后端人员对数据库的每个操作 对应 前端人员ajax的4个请求
+        // ajax请求 get(调用后端人员写的查资源的接口) post(调用接口 添加数据资源) put(调用接口 修改数据资源) delete(调用接口 删除数据资源)
+
+        // axios三种参数
+        // params           参数是路径的一部分，并且这个参数只能在url路径当中出现
+        // query            这个参数叫查询参数，这个参数可以出现在url当中，也可以在配置项当中配置, query参数不属于路径的一部分 。在url当中 是?后面的 key=value& key=value。在配置项当中 配置项的名称叫params
+        // body请求体参数   
+        // 通常用在post和put当中，只能在配置对象当中配置
+        // data这个配置项就是你的body请求体参数  这个数据必须是一个对象
+        axios({
+            // 配置对象
+            // url: 'https://api.github.com/search/repositories?q=v&sort=stars',
+            // url(统一资源定位)：  协议 ip 端口  路径（可以包含params参数）  ?query参数
+            url: 'https://api.github.com/search/repositories',
+            method: "get",
+            params: {
+                q: 'v',
+                sort: 'stars'
+            }
+        }).then(response => {
+            console.log(response.data)
+        }).catch(error => {
+            console.log(error)
+        })
+
+        // 如果是对象写法，请求方式是对象的方法名，第一个参数都代表url(params和query都直接写在url当中)
+        // 如果有body请求体参数，post和put  第二个参数代表的就是请求体参数。get delete第二个
+        // get delete第二个参数不是请求体参数，代表是一个配置对象
+        /* axios.get('https://api.github.com/search/repositories?q=v&sort=stars')
+        axios.post('https://api.github.com/search/repositories?q=v&sort=stars', {
+            请求体参数
+        }) */
+    </script>
+</body>
+
+</html>

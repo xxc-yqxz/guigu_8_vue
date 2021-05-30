@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // ... 运算符 是扩展运算符
+        // 打包和拆包 要么是数组要么是对象
+        // 对于打包只有一种情况是打包并且打包只能打包数组
+
+        // 数组的打包和拆包
+        // 拆包
+        let arr = [1, 2, 3, 4]
+        console.log(...arr)
+        console.log([1, 2, 3, 4, ...arr])
+
+        // 数组打包 只在函数形参当中会出现（为了传递不定参数）
+        function add(a, b, ...arr) {
+            console.log(arr)
+            console.log(arr instanceof Array)
+        }
+        add(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+
+
+        // 对象只能拆包,而且不能直接拆包
+        // 拆包对象只能在一个新的对象当中去拆一个老的对象
+        let obj = {
+            name: 'xxc',
+            age: 18
+        }
+        // 浅拷贝
+        console.log({ ...obj })
+
+    </script>
+</body>
+
+</html>
