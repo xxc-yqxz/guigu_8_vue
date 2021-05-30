@@ -13,7 +13,6 @@ Vue.use(VueRouter)
 
 // 3 
 export default new VueRouter({
-    mode: 'history',
     // 配置路由
     routes: [
         {
@@ -47,9 +46,8 @@ export default new VueRouter({
                     component: News,
                     children: [
                         {
-                            path: 'newsdetail/:newsid',
-                            component: NewsDetail,
-                            name: 'newsdetail'
+                            path: 'newsdetail',
+                            component: NewsDetail
                         }
                     ]
                 },

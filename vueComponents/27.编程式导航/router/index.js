@@ -13,7 +13,6 @@ Vue.use(VueRouter)
 
 // 3 
 export default new VueRouter({
-    mode: 'history',
     // 配置路由
     routes: [
         {
